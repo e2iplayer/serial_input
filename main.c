@@ -272,7 +272,7 @@ int main(int argc, char *argv[])
     {
         if (0 == strcmp(argv[1], "--help"))
         {
-            printf("Usage: \n");
+            printf("Usage v2026.01.11: \n");
             printf("\t%s [path to config file] \n", argv[0]);
             printf("\t\t path to config file - default: %s\n", config_file);
             exit(0);
@@ -424,6 +424,13 @@ int main(int argc, char *argv[])
                             }
                             else
                                 printf("WRONG CONFIG SIZE: %u, EXPECTED: %u\n", rsize, sizeof(avr_cfg));
+                        }
+                        else if (0 == strncmp(buf, "CoLd", 4))
+                        {
+                            int fdCold = open("/tmp/srcd_cold_boot", O_CREAT | O_EXCL, 0644);
+                            if (fdCold >= 0) {
+                                close(fdCold);
+                            }
                         }
                         else 
                         {
