@@ -423,7 +423,7 @@ int main(int argc, char *argv[])
                                 }
                             }
                             else
-                                printf("WRONG CONFIG SIZE: %u, EXPECTED: %u\n", rsize, sizeof(avr_cfg));
+                                printf("WRONG CONFIG SIZE: %zu, EXPECTED: %zu\n", rsize, sizeof(avr_cfg));
                         }
                         else if (0 == strncmp(buf, "CoLd", 4))
                         {
