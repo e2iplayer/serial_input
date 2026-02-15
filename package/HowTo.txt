@@ -25,4 +25,6 @@ echo "0 4 0 0" |  tee /proc/sys/kernel/printk
 # Check active console
 # cat /sys/class/tty/console/active
 
-
+# detect wich pin is TX in STB:
+while true; do printf "U"; done > /dev/ttyS0
+while true; do printf "U" > /dev/ttyS0; done

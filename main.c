@@ -272,7 +272,7 @@ int main(int argc, char *argv[])
     {
         if (0 == strcmp(argv[1], "--help"))
         {
-            printf("Usage v2026.01.11: \n");
+            printf("Usage v2026.02.15: \n");
             printf("\t%s [path to config file] \n", argv[0]);
             printf("\t\t path to config file - default: %s\n", config_file);
             exit(0);
@@ -300,6 +300,31 @@ int main(int argc, char *argv[])
     {
         printf("Please set serial in the config file!\n");
         return 2;
+    }
+ 
+    if (strcmp(config.serial, "auto") == 0)
+    {
+        const char *ports[] = {
+            "/dev/ttyAMA0",
+            "/dev/ttyS0",
+            "/dev/ttyUSB0"
+        };
+
+        size_t i = 0;
+        for (; i < sizeof(ports)/sizeof(ports[0]); ++i)
+        {
+            if (access(ports[i], F_OK) == 0)
+            {
+                strncpy(config.serial, ports[i], sizeof(config.serial) - 1);
+                config.serial[sizeof(config.serial) - 1] = '\0';
+                printf("Serial %s exits!\n", config.serial);
+                break;
+            }
+            else
+            {
+                printf("Serial %s does not exit!\n", config.serial);
+            }
+        }
     }
 
     fd = open(config.serial, O_RDWR | O_NOCTTY | O_SYNC);
